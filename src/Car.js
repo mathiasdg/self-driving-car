@@ -64,7 +64,7 @@ export default class Car {
 		if (Math.abs(this.speed) < 0.1) this.speed = 0;
 		
 		if (DEBUG) {
-			console.log(this.speed, this.direction, this.flip)
+			// console.log(this.speed, this.direction, this.flip)
 		}
 	}
 
@@ -75,11 +75,29 @@ export default class Car {
 		image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
 		
 		if (DEBUG) {
+			this.#drawCarBorder();
+			
 			stroke("red")
 			strokeWeight(6.9)
 			point(0, 0);
 		}
 		
 		pop();
+	}
+
+	#drawCarBorder(){
+		noFill()
+		stroke(255,122,22)
+		strokeWeight(2)
+
+		rect(- this.width / 2+30, -this.height / 2+10, this.width-60, this.height-20);
+		
+		// polygon
+		// beginShape();
+		// vertex(-this.width / 2, -this.height / 2);
+		// vertex(this.width / 2, -this.height / 2);
+		// vertex(this.width / 2, this.height / 2);
+		// vertex(-this.width / 2, this.height / 2);
+		// endShape(CLOSE);
 	}
 }
