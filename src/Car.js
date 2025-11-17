@@ -23,7 +23,7 @@ export default class Car {
 		this.height = height;
 		this.direction = direction ; // laat 0° op de cirkel boven zijn
 		this.speed = speed;
-		this.acceleration = 0.22;
+		this.acceleration = 0.420	;
 		this.icon = autoIcon;
 		this.controls = new Controls();
 	}
