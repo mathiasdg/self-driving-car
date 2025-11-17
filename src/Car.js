@@ -58,9 +58,6 @@ export default class Car {
 		// Boundary wrapping
 		if (this.x < 0) this.x = CANVAS_WIDTH;
 		if (this.x > CANVAS_WIDTH) this.x = 0;
-		if (this.y < 0) this.y = window.height;
-		if (this.y > window.height) this.y = 0;
-		
 		if (Math.abs(this.speed) < 0.1) this.speed = 0;
 		
 		if (DEBUG) {
