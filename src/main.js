@@ -3,6 +3,7 @@ import Car from "./Car";
 import autoIcon from "/auto.svg";
 import "./style.css";
 
+const p5canvas = document.querySelector("#p5canvas");
 let car;
 let svgIcon;
 let height;
@@ -13,7 +14,7 @@ function preload() {
 
 function setup() {
 	height = window.innerHeight;
-	createCanvas(SIZES.CANVAS_WIDTH, height);
+	createCanvas(SIZES.CANVAS_WIDTH, height, p5canvas);
 	// imageMode(CENTER);
 
 	car = new Car(
