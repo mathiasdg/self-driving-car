@@ -1,5 +1,6 @@
 import { CANVAS_WIDTH, DEBUG } from "../Helpers/constants";
 import Controls from "./Controls";
+import Sensor from "./Sensor";
 
 /**
  * Represents a car object in the self-driving car simulation.
@@ -25,13 +26,45 @@ export default class Car {
 		this.speed = speed;
 		this.acceleration = 0.420	;
 		this.icon = autoIcon;
+
 		this.controls = new Controls();
+		this.sensor = new Sensor(this, 7, Math.PI*2/3);
 	}
 
-	update() {
+	update(roadBorders) {
 		// Apply basic friction
 		this.speed *= 0.96;
 
+		this.#move()
+		this.#wrapBoundary()
+
+		this.sensor.update(roadBorders)
+		
+		if (DEBUG) {
+			// console.log(this.speed, this.direction, this.flip)
+		}
+	}
+
+	draw() {
+		this.sensor.draw()
+		push();
+		translate(this.x, this.y);
+		rotate(this.direction);
+		image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
+
+		
+		if (DEBUG) {
+			this.#drawCarBorder();
+			
+			stroke("red")
+			strokeWeight(6.9)
+			point(0, 0);
+		}
+		
+		pop();
+	}
+
+	#move() {
 		// flip turning when reversing
 		this.flip = (this.speed < 0) ? -1 : 1;
 		
@@ -54,32 +87,13 @@ export default class Car {
 		// Update position
 		this.x -= this.speed * Math.sin(-this.direction);
 		this.y -= this.speed * Math.cos(-this.direction);
+	}
 
+	#wrapBoundary() {
 		// Boundary wrapping
 		if (this.x < 0) this.x = CANVAS_WIDTH;
 		if (this.x > CANVAS_WIDTH) this.x = 0;
-		if (Math.abs(this.speed) < 0.1) this.speed = 0;
-		
-		if (DEBUG) {
-			// console.log(this.speed, this.direction, this.flip)
-		}
-	}
-
-	draw() {
-		push();
-		translate(this.x, this.y);
-		rotate(this.direction);
-		image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
-		
-		if (DEBUG) {
-			this.#drawCarBorder();
-			
-			stroke("red")
-			strokeWeight(6.9)
-			point(0, 0);
-		}
-		
-		pop();
+		if (Math.abs(this.speed) < 0.1) this.speed = 0;		
 	}
 
 	#drawCarBorder(){

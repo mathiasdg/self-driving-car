@@ -7,10 +7,11 @@ import "../style.css";
 // import App from "./App.svelte";
 
 const p5canvas = document.querySelector("#p5canvas");
+let road;
 let car;
 let svgIcon;
 let height;
-let road;
+let looper = false;
 
 function preload() {
 	svgIcon = loadImage(autoIcon);
@@ -38,20 +39,34 @@ function draw() {
 	resizeCanvas(SIZES.CANVAS_WIDTH, height);
 	background(69);
 	
-	car.update();
 	// road.update();
+	car.update(road.borders);
 
 	push();
-	translate(0, -car.y+height*0.77);
-	road.draw();
-	car.draw();
+		translate(0, -car.y+height*0.77);
+		road.draw();
+		car.draw();
 	pop();
+
+	if(!looper) noLoop();
+}
+
+function keyPressed() {
+	if(key === 's') {
+		looper = !looper;
+		if(looper)
+			loop();
+		else
+			noLoop();
+	}
 }
 
 // Make them global
 window.preload = preload;
 window.setup = setup;
 window.draw = draw;
+window.keyPressed = keyPressed;
+
 // de classes ook voor devtool interaction bij debuggen
 if(SIZES.DEBUG) {
 	window.Road = Road;
