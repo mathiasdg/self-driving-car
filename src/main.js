@@ -1,8 +1,8 @@
-import * as SIZES from "./constants";
-import Car from "./Car";
-import Road from "./Road";
+import * as SIZES from "./Helpers/constants";
+import Car from "./Classes/Car";
+import Road from "./Classes/Road";
 import autoIcon from "/auto.svg";
-import "./style.css";
+import "../style.css";
 
 const p5canvas = document.querySelector("#p5canvas");
 let car;

@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH, DEBUG } from "./constants";
+import { CANVAS_WIDTH, DEBUG } from "../Helpers/constants";
 import Controls from "./Controls";
 
 /**

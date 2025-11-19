@@ -1,5 +1,5 @@
-import { DEBUG } from "./constants";
-import { clamp } from "./utils";
+import { DEBUG } from "../Helpers/constants";
+import { clamp } from "../Helpers/utils";
 
 /**
  * Represents a road with multiple lanes for a self-driving car simulation.

@@ -1,7 +1,5 @@
-import { expect, test } from 'vitest'
-import Car from '../src/Car.js'
-// import { cos, sin } from Math
-// import Controls from '../src/Controls.js'
+// import { expect, test } from 'vitest'
+import Car from '../src/Classes/Car.js'
 
 test('the car moves forward when up is pressed', () => {
   const car = new Car(150, 600);
