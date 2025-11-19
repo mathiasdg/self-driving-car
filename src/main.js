@@ -3,6 +3,8 @@ import Car from "./Classes/Car";
 import Road from "./Classes/Road";
 import autoIcon from "/auto.svg";
 import "../style.css";
+// import { mount } from "svelte";
+// import App from "./App.svelte";
 
 const p5canvas = document.querySelector("#p5canvas");
 let car;
@@ -55,3 +57,7 @@ if(SIZES.DEBUG) {
 	window.Road = Road;
 	window.Car = Car;
 }
+
+// const app = mount(App, {
+// 	target: document.querySelector("#app")}
+// );
