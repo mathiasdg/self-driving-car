@@ -104,8 +104,8 @@ export default class Sensor {
             this.rays.push(
                 // {x: this.x, y: this.y},
                 {
-                    x: this.x - sin(rayAngle) * this.rayLength,
-                    y: this.y - cos(rayAngle) * this.rayLength  
+                    x: this.x - Math.sin(rayAngle) * this.rayLength,
+                    y: this.y - Math.cos(rayAngle) * this.rayLength  
                 }
             )
         }
@@ -120,8 +120,8 @@ export default class Sensor {
             //     y: this.y
             // };
             const end = {
-                x: this.x - sin(rayAngle) * this.rayLength,
-                y: this.y - cos(rayAngle) * this.rayLength
+                x: this.x - Math.sin(rayAngle) * this.rayLength,
+                y: this.y - Math.cos(rayAngle) * this.rayLength
             }
             this.rays.push(end);
             // this.rays.push([start, end]);
