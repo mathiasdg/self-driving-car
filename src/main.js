@@ -11,7 +11,7 @@ let road;
 let car;
 let svgIcon;
 let height;
-let looper = false;
+let looper = true;
 
 function preload() {
 	svgIcon = loadImage(autoIcon);
