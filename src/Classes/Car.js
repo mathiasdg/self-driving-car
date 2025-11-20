@@ -50,6 +50,10 @@ export default class Car {
 		push();
 		translate(this.x, this.y);
 		rotate(this.direction);
+		rectMode(CENTER)
+		noStroke();
+		fill(42, 69, 120)
+		rect(0, 0, this.width-72, this.height-34);
 		image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
 
 		
@@ -101,7 +105,7 @@ export default class Car {
 		stroke(255,122,22)
 		strokeWeight(2)
 
-		rect(- this.width / 2+30, -this.height / 2+10, this.width-60, this.height-20);
+		rect(0, 0, this.width-60, this.height-20);
 		
 		// polygon
 		// beginShape();
