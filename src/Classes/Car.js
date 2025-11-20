@@ -33,15 +33,16 @@ export default class Car {
 		this.windscreen = new Windscreen(this);
 	}
 
-	update(roadBorders) {
+	update(road, toggleWindscreen) {
 		// Apply basic friction
 		this.speed *= 0.96;
 
 		this.#move()
 		this.#wrapBoundary()
 
-		this.sensor.update(roadBorders)
-		this.windscreen.update(roadBorders)
+		this.sensor.update(road.borders)
+		this.windscreen.update(road);
+		this.toggleWindscreen = toggleWindscreen;
 		
 		if (DEBUG) {
 			// console.log(this.speed, this.direction, this.flip)
@@ -50,7 +51,10 @@ export default class Car {
 
 	draw() {
 		this.sensor.draw()
-		this.windscreen.draw()
+
+		if(this.toggleWindscreen)
+			this.windscreen.draw()
+	
 		push();
 		translate(this.x, this.y);
 		rotate(this.direction);

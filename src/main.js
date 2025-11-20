@@ -12,6 +12,7 @@ let car;
 let svgIcon;
 let height;
 let looper = true;
+let toggleWindscreen = false
 
 function preload() {
 	svgIcon = loadImage(autoIcon);
@@ -20,7 +21,6 @@ function preload() {
 function setup() {
 	height = window.innerHeight;
 	createCanvas(SIZES.CANVAS_WIDTH, height, p5canvas);
-	// imageMode(CENTER);
 
 	road = new Road(SIZES.CANVAS_WIDTH);
 	car = new Car(
@@ -40,7 +40,7 @@ function draw() {
 	background(69);
 	
 	// road.update();
-	car.update(road.borders);
+	car.update(road, toggleWindscreen);
 
 	push();
 		translate(0, -car.y+height*0.77);
@@ -58,6 +58,9 @@ function keyPressed() {
 			loop();
 		else
 			noLoop();
+	}
+	if(key === 'v') {
+		toggleWindscreen = !toggleWindscreen;
 	}
 }
 
