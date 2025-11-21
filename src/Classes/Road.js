@@ -16,7 +16,6 @@ export default class Road {
         this.roadPadding = 11;
         this.bottom = this.roadLength/7;
         this.top = -this.roadLength;
-        // this.bottom = -this.roadLength;
         this.laneWidth = this.width / this.lanes;
         
         
