@@ -1,7 +1,7 @@
 {
   "name": "self-driving-car",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "4.0.69",
   "type": "module",
   "scripts": {
     "dev": "vite",
