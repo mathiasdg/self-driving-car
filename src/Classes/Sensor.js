@@ -1,3 +1,5 @@
+import { lerp } from '../Helpers/utils'
+
 export default class Sensor {
     constructor(car, rayCount = 4, raySpread = Math.PI/2 ) {
         this.car = car;
