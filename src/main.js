@@ -12,7 +12,11 @@ let car;
 let svgIcon;
 let height;
 let looper = true;
-let toggleWindscreen = false
+const drawOptions = {
+	debug: true,
+    sensorsOn: true,
+    windscreenOn: false
+};
 
 function preload() {
 	svgIcon = loadImage(autoIcon);
@@ -39,20 +43,19 @@ function draw() {
 	resizeCanvas(SIZES.CANVAS_WIDTH, height);
 	background(69);
 	
-	// road.update();
-	car.update(road, toggleWindscreen);
+	car.update(road);
 
 	push();
 		translate(0, -car.y+height*0.77);
 		road.draw();
-		car.draw();
+		car.draw(drawOptions);
 	pop();
 
 	if(!looper) noLoop();
 }
 
 function keyPressed() {
-	if(key === 's') {
+	if(key === 'p') {
 		looper = !looper;
 		if(looper)
 			loop();
@@ -60,7 +63,13 @@ function keyPressed() {
 			noLoop();
 	}
 	if(key === 'v') {
-		toggleWindscreen = !toggleWindscreen;
+		drawOptions.windscreenOn = !drawOptions.windscreenOn;
+	}
+	if(key === 's') {
+		drawOptions.sensorsOn = !drawOptions.sensorsOn;
+	}
+	if(key === 'd') {
+		drawOptions.debug = !drawOptions.debug;
 	}
 }
 
@@ -71,9 +80,10 @@ window.draw = draw;
 window.keyPressed = keyPressed;
 
 // de classes ook voor devtool interaction bij debuggen
-if(SIZES.DEBUG) {
+if(drawOptions.debug) {
 	window.Road = Road;
 	window.Car = Car;
+	window.drawOptions = drawOptions;
 }
 
 // const app = mount(App, {

@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH, DEBUG } from "../Helpers/constants";
+import { CANVAS_WIDTH } from "../Helpers/constants";
 import Controls from "./Controls";
 import Sensor from "./Sensor";
 import Windscreen from "./Windscreen";
@@ -33,7 +33,7 @@ export default class Car {
 		this.windscreen = new Windscreen(this);
 	}
 
-	update(road, toggleWindscreen) {
+	update(road) {
 		// Apply basic friction
 		this.speed *= 0.96;
 
@@ -42,17 +42,15 @@ export default class Car {
 
 		this.sensor.update(road.borders)
 		this.windscreen.update(road);
-		this.toggleWindscreen = toggleWindscreen;
-		
-		if (DEBUG) {
-			// console.log(this.speed, this.direction, this.flip)
-		}
 	}
 
-	draw() {
-		this.sensor.draw()
+	draw(options) {
+		if(options.sensorsOn) {
+			this.sensor.draw()
+		}
 
-		if(this.toggleWindscreen)
+
+		if(options.windscreenOn)
 			this.windscreen.draw()
 	
 		push();
@@ -61,13 +59,14 @@ export default class Car {
 		rectMode(CENTER)
 		noStroke();
 		fill(42, 69, 120)
+		// rechthoek met zelfde grootte onder de auto om ramen vol te maken
 		rect(0, 0, this.width-72, this.height-34);
 		image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
 
-		
-		if (DEBUG) {
+		if (options.debug) {
+			// bounding box rond de auto voor collission detection
 			this.#drawCarBorder();
-			
+
 			stroke("red")
 			strokeWeight(6.9)
 			point(0, 0);

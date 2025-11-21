@@ -73,10 +73,6 @@ export default class Sensor {
         const tTop=(D.x-C.x)*(A.y-C.y)-(D.y-C.y)*(A.x-C.x);    
         const uTop=(C.y-A.y)*(A.x-B.x)-(C.x-A.x)*(A.y-B.y);    
         const bottom=(D.y-C.y)*(B.x-A.x)-(D.x-C.x)*(B.y-A.y);
-
-        // console.log(tTop)
-        // console.log(uTop)
-        // console.log(bottom)
           
         if(bottom!=0){
     
@@ -99,10 +95,9 @@ export default class Sensor {
 
         const startAngle = -this.raySpread/2;
 
-        if (this.rayCount ===1) {
+        if (this.rayCount === 1) {
             const rayAngle = -this.car.direction;
             this.rays.push(
-                // {x: this.x, y: this.y},
                 {
                     x: this.x - Math.sin(rayAngle) * this.rayLength,
                     y: this.y - Math.cos(rayAngle) * this.rayLength  

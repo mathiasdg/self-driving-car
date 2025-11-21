@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH, DEBUG } from "../Helpers/constants";
+import { CANVAS_WIDTH } from "../Helpers/constants";
 
 export default class Windscreen {
 	constructor(car) {
@@ -17,8 +17,9 @@ export default class Windscreen {
     }
 
     draw() {
+        const yLocationScreen = window.height * 0.75
         push()
-            translate(0, this.car.y-585);          
+            translate(0, this.car.y - yLocationScreen);          
             stroke(42, 69, 120);
             strokeWeight(6);
             fill(169);
@@ -26,7 +27,7 @@ export default class Windscreen {
         pop()
 
         push();
-            translate((this.width/2 - this.car.x)/2, this.car.y-585);
+            translate((this.width/2 - this.car.x)/2, this.car.y - yLocationScreen);
             // teken de borders
             stroke(222);
             strokeWeight(4);
