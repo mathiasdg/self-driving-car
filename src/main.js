@@ -1,6 +1,7 @@
-import * as SIZES from "./Helpers/constants";
+import * as _69 from "./Helpers/constants";
 import Car from "./Classes/Car";
 import Road from "./Classes/Road";
+
 import autoIcon from "/auto.svg";
 import "../style.css";
 // import { mount } from "svelte";
@@ -24,14 +25,15 @@ function preload() {
 
 function setup() {
 	height = window.innerHeight;
-	createCanvas(SIZES.CANVAS_WIDTH, height, p5canvas);
+	createCanvas(_69.CANVAS_WIDTH, height, p5canvas);
 
-	road = new Road(SIZES.CANVAS_WIDTH);
+	road = new Road(_69.CANVAS_WIDTH);
 	car = new Car(
-		road.getLaneCenter(2),
+		// road.getLaneCenter(2),
+		11,
 		height*0.87,
-		SIZES.CAR_WIDTH,
-		SIZES.CAR_HEIGHT,
+		_69.CAR_WIDTH,
+		_69.CAR_HEIGHT,
 		0,
 		0,
 		svgIcon,
@@ -40,13 +42,13 @@ function setup() {
 
 function draw() {
 	height = window.innerHeight;
-	resizeCanvas(SIZES.CANVAS_WIDTH, height);
+	resizeCanvas(_69.CANVAS_WIDTH, height);
 	background(69);
 	
 	car.update(road);
 
 	push();
-		translate(0, -car.y+height*0.77);
+		translate(0, -car.y+height*0.87);
 		road.draw();
 		car.draw(drawOptions);
 	pop();
@@ -81,8 +83,8 @@ window.keyPressed = keyPressed;
 
 // de classes ook voor devtool interaction bij debuggen
 if(drawOptions.debug) {
-	window.Road = Road;
-	window.Car = Car;
+	window.Road = road;
+	window.Car = car;
 	window.drawOptions = drawOptions;
 }
 

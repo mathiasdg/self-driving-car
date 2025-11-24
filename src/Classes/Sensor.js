@@ -1,4 +1,4 @@
-import { lerp } from '../Helpers/utils'
+import { getIntersection } from "../Helpers/utils";
 
 export default class Sensor {
     constructor(car, rayCount = 4, raySpread = Math.PI/2 ) {
@@ -18,9 +18,9 @@ export default class Sensor {
         this.#castRays()
         this.readings = [];
         
-        for (let i = 0; i < this.rays.length; ++i) {
+        for (const ray of this.rays) {
             this.readings.push(
-                this.#getReading(this.rays[i], roadBorders)
+                this.#getReading(ray, roadBorders)
             )
         }
     }
@@ -33,6 +33,7 @@ export default class Sensor {
             line(this.car.x, this.car.y, ray.x, ray.y);
             // line(ray[0].x, ray[0].y, ray[1].x, ray[1].y);
         }
+
         for (let reading of this.readings) {
             if (reading) {
                 stroke(255, 0, 0);
@@ -42,23 +43,21 @@ export default class Sensor {
                 point(reading.x, reading.y)
             }
         }
-
     }
 
     #getReading(ray, roadBorders) {
         let intersectionPoints = [];
         
         for (let border of roadBorders) {
-            const touch = this.#getIntersection(
+            const touch = getIntersection(
                 {x: this.car.x, y: this.car.y}, 
                 ray, 
                 border[0], 
                 border[1]
             );
             if (touch) {
-                intersectionPoints.push(touch);
+                intersectionPoints.push(touch);               
             }
-            // console.log(touch);
         }
         if (intersectionPoints.length === 0) {
             return null;
@@ -70,27 +69,7 @@ export default class Sensor {
         );
     }
 
-    #getIntersection(A, B, C, D){ 
-
-        const tTop=(D.x-C.x)*(A.y-C.y)-(D.y-C.y)*(A.x-C.x);    
-        const uTop=(C.y-A.y)*(A.x-B.x)-(C.x-A.x)*(A.y-B.y);    
-        const bottom=(D.y-C.y)*(B.x-A.x)-(D.x-C.x)*(B.y-A.y);
-          
-        if(bottom!=0){
     
-            const t=tTop/bottom;
-            const u=uTop/bottom;
-    
-            if(t>=0 && t<=1 && u>=0 && u<=1){
-                return {
-                    x:lerp(A.x,B.x,t),
-                    y:lerp(A.y,B.y,t),
-                    offset:t
-                }
-            }
-        }
-        return null;
-    }
 
     #castRays() {
         this.rays = [];
