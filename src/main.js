@@ -29,8 +29,7 @@ function setup() {
 
 	road = new Road(_69.CANVAS_WIDTH);
 	car = new Car(
-		// road.getLaneCenter(2),
-		11,
+		road.getLaneCenter(2),
 		height*0.87,
 		_69.CAR_WIDTH,
 		_69.CAR_HEIGHT,
