@@ -4,12 +4,13 @@ export default class Controls {
         this.reverse = false;
         this.turnLeft = false;
         this.turnRight = false;
-
+        this.handbrake = false;
+        
         this.#addKeyboardListener();
     }
 
     #addKeyboardListener() {
-        window.addEventListener('keydown', (event) => {
+        this.keydownHandler = event => {
             switch (event.key) {
                 case 'ArrowUp':
                     this.accelerate = true;
@@ -18,18 +19,19 @@ export default class Controls {
                     this.reverse = true;
                     break;
                 case 'ArrowLeft':
-                    this.left = true;
+                    this.turnLeft = true;
                     break;
                 case 'ArrowRight':
-                    this.right = true;
+                    this.turnRight = true;
                     break;
                 case ' ':
                     this.handbrake = true;
+                    event.preventDefault();
                     break;
             }
-        });
+        };
 
-        window.addEventListener('keyup', (event) => {
+        this.keyupHandler = event => {
             switch (event.key) {
                 case 'ArrowUp':
                     this.accelerate = false;
@@ -38,15 +40,25 @@ export default class Controls {
                     this.reverse = false;
                     break;
                 case 'ArrowLeft':
-                    this.left = false;
+                    this.turnLeft = false;
                     break;
                 case 'ArrowRight':
-                    this.right = false;
+                    this.turnRight = false;
                     break;
                 case ' ':
                     this.handbrake = false;
                     break;
             }
-        });
+        };
+
+        window.addEventListener('keydown', this.keydownHandler);
+        window.addEventListener('keyup', this.keyupHandler);
+    }
+    
+    // Clean up when no longer needed
+    destroy() {
+        window.removeEventListener('keydown', this.keydownHandler);
+        window.removeEventListener('keyup', this.keyupHandler);
     }
 }
+
