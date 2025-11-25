@@ -1,11 +1,12 @@
 import { getIntersection } from "../Helpers/utils";
+import { RAY_LENGTH } from "../Helpers/constants";  
 
 export default class Sensor {
     constructor(car, rayCount = 4, raySpread = Math.PI/2 ) {
         this.car = car;
         this.rayCount = rayCount;
         this.raySpread = raySpread;
-        this.rayLength = 220;
+        this.rayLength = RAY_LENGTH;
 
         this.rays = [];
         this.readings = [];

@@ -1,5 +1,5 @@
 import * as _69 from "./Helpers/constants";
-import Car from "./Classes/Car";
+import UserCar from "./Classes/UserCar";
 import Road from "./Classes/Road";
 
 import autoIcon from "/auto.svg";
@@ -28,15 +28,20 @@ function setup() {
 	createCanvas(_69.CANVAS_WIDTH, height, p5canvas);
 
 	road = new Road(_69.CANVAS_WIDTH);
-	car = new Car(
-		road.getLaneCenter(2),
-		height*0.87,
-		_69.CAR_WIDTH,
-		_69.CAR_HEIGHT,
-		0,
-		0,
-		svgIcon,
-	);
+	car = new UserCar({
+		x: road.getLaneCenter(2),
+		y: height * _69.CAR_BOTTOM_PLACEMENT,
+		width: _69.CAR_WIDTH,
+		height: _69.CAR_HEIGHT,
+		direction: 0,
+		speed: 0,
+		autoIcon: svgIcon
+	});
+
+	// de classes ook voor devtool interaction bij debuggen
+	if(drawOptions.debug) {
+		makeGlobal();
+	}
 }
 
 function draw() {
@@ -47,7 +52,7 @@ function draw() {
 	car.update(road);
 
 	push();
-		translate(0, -car.y+height*0.87);
+		translate(0, -car.y + height * _69.CAR_BOTTOM_PLACEMENT);
 		road.draw();
 		car.draw(drawOptions);
 	pop();
@@ -80,10 +85,9 @@ window.setup = setup;
 window.draw = draw;
 window.keyPressed = keyPressed;
 
-// de classes ook voor devtool interaction bij debuggen
-if(drawOptions.debug) {
-	window.Road = road;
-	window.Car = car;
+function makeGlobal() {
+	window.road = road;
+	window.car = car;
 	window.drawOptions = drawOptions;
 }
 
