@@ -23,6 +23,9 @@ export default class UserCar extends Car {
     update(road) {
         super.update(road);
 
+        // wrijven maar
+        this.speed *= _69.FRICTION;
+
         this.sensor.update(road.borders)
         this.windscreen.update(road);
 
@@ -34,7 +37,7 @@ export default class UserCar extends Car {
     }
 
     draw(options) {
-        super.draw(options);
+        super.drawCar(true);
 
         this.#drawOptions(options);
 

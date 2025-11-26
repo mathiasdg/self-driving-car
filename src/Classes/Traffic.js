@@ -1,0 +1,99 @@
+import Car from './Car';
+import { CAR_WIDTH, CAR_HEIGHT } from '../Helpers/constants';
+
+export default class Traffic {
+
+    constructor( trafficCount, road, icon ) {
+        this.amount = trafficCount;
+        this.road = road;
+        this.icon = icon
+        this.cars = [];
+
+        this.#generateCars(this.amount)
+    }
+
+    #generateCars(amount) {
+
+        const trafficColors = [
+            { r: 222, g: 69, b: 69 },   // Red
+            { r: 69, g: 222, b: 69 },   // Green
+            { r: 69, g: 169, b: 222 },  // Blue
+            { r: 222, g: 169, b: 69 },  // Orange
+            { r: 169, g: 69, b: 169 },  // Purple
+            { r: 169, g: 169, b: 100 }  // Gray
+        ];
+
+        for (let i=0; i<amount; ++i) {
+            const laneIndex = floor( random(1, this.road.lanes+1) );
+            const color = random(trafficColors);
+            
+            const car = new Car({
+                x: this.road.getLaneCenter(laneIndex),
+                y: round(random(-3690, 690)),
+                width: CAR_WIDTH,
+                height: CAR_HEIGHT,
+                speed: random(4, 6.9),
+                acceleration: random(1, 6.9),
+                autoIcon: this.icon,
+                color: color
+            });
+
+            this.cars.push(car);
+        }
+    }
+
+    update() {
+        for(const car of this.cars) {
+            car.update(this.road);
+        }
+    }
+
+    draw() {
+        for(const car of this.cars) {
+            car.draw();
+        }
+    }
+
+
+    // Utility methods 
+    
+    // Get all traffic cars (useful for collision detection)
+    getCars() {
+        return this.cars;
+    }
+    
+    // Add a new traffic car dynamically
+    addCar(laneIndex, y) {
+        const car = new Car({
+            x: this.road.getLaneCenter(laneIndex),
+            y: y,
+            width: CAR_WIDTH,
+            height: CAR_HEIGHT,
+            direction: 0,
+            speed: random(1, 3),
+            acceleration: random(0.3, 0.4),
+            autoIcon: this.icon,
+            color: {
+                r: round(random(122, 220)), 
+                g: round(random(69, 209)), 
+                b: round(random(42, 142))
+            }
+        });
+        
+        this.cars.push(car);
+
+        return car;
+    }
+    
+    // Remove cars that are too far off-screen (performance optimization)
+    removeOffscreenCars(minY, maxY) {
+        this.cars = this.cars.filter(car => {
+            return car.y > minY && car.y < maxY;
+        });
+    }
+    
+    // Get number of active traffic cars
+    getCount() {
+        return this.cars.length;
+    }
+}

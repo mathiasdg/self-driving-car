@@ -17,7 +17,7 @@ export default class Car {
      * @param {p5.Image} autoIcon - The car's image.
      */
     constructor(options) {
-        const { x, y, width, height, direction = 0, speed = 0, autoIcon } = options;
+        const { x, y, width, height, direction = 0, speed = 0, acceleration = _69.ACCELERATION, color, autoIcon } = options;
 
         this.x = x;
         this.y = y;
@@ -26,27 +26,31 @@ export default class Car {
         this.direction = direction ; // laat 0° op de cirkel boven zijn
         this.speed = speed;
         this.icon = autoIcon;
-        this.acceleration = _69.ACCELERATION;
+        this.acceleration = acceleration;
         this.damaged = false;
+        this.color = color;
+		// this.tint = {
+        //     r: round( random(222) ), 
+        //     g: round( random(169) ), 
+        //     b: round( random(222) )
+        // };
 
-        this.polygon = [];
+		this.polygon = [];
         this.collisions = [];
     }
 
     update(road) {
-        // wrijven maar
-        this.speed *= _69.FRICTION;
-
         this.move();
         this.polygon = this.createPolygon();
 
         // this.wrapBoundary();
     }
 
-    draw(options) {
+    draw() {
         this.drawCar();
     }
 
+    
     /*
         public getter methods
     */
@@ -82,8 +86,9 @@ export default class Car {
         return points;
     }
 
-    drawCar() {
+    drawCar(originalColor = false) {
         push();
+
         translate(this.x, this.y);
         rotate(this.direction);
         rectMode(CENTER)
@@ -94,11 +99,14 @@ export default class Car {
         rect(0, 0, this.width - _69.CAR_BODY_WIDTH_OFFSET, this.height - _69.CAR_BODY_HEIGHT_OFFSET);
 
         if (this.damaged) {
-            tint(69); // gray-ish
+            tint(111, 169); // gray-ish
             // noLoop();
-            // this.icon.filter(GRAY)
+        }
+        if (!originalColor) {
+            tint(this.color.r, this.color.g, this.color.b);
         }
         image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
+
         pop();
     }
 
@@ -122,6 +130,7 @@ export default class Car {
     
 
 	move() {
+        // this.speed += this.acceleration;
         // Basic movement - can be overridden
         this.x -= this.speed * Math.sin(-this.direction);
         this.y -= this.speed * Math.cos(-this.direction);
@@ -129,7 +138,7 @@ export default class Car {
 
     wrapBoundary() {
         // Boundary wrapping
-        if (this.x < 0) this.x = CANVAS_WIDTH;
+        if (this.x < 0) this.x = _69.CANVAS_WIDTH;
         if (this.x > _69.CANVAS_WIDTH) this.x = 0;
         if (Math.abs(this.speed) < 0.1) this.speed = 0;
     }

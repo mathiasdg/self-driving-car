@@ -1,7 +1,7 @@
 import * as _69 from "./Helpers/constants";
 import UserCar from "./Classes/UserCar";
 import Road from "./Classes/Road";
-
+import Traffic from "./Classes/Traffic";
 import autoIcon from "/auto.svg";
 import "../style.css";
 // import { mount } from "svelte";
@@ -10,13 +10,15 @@ import "../style.css";
 const p5canvas = document.querySelector("#p5canvas");
 let road;
 let car;
+let traffic;
 let svgIcon;
 let height;
 let looper = true;
 const drawOptions = {
 	debug: true,
     sensorsOn: true,
-    windscreenOn: false
+    windscreenOn: false,
+	userCar: true
 };
 
 function preload() {
@@ -28,6 +30,7 @@ function setup() {
 	createCanvas(_69.CANVAS_WIDTH, height, p5canvas);
 
 	road = new Road(_69.CANVAS_WIDTH);
+	traffic = new Traffic(11, road, svgIcon)
 	car = new UserCar({
 		x: road.getLaneCenter(2),
 		y: height * _69.CAR_BOTTOM_PLACEMENT,
@@ -41,6 +44,7 @@ function setup() {
 	// de classes ook voor devtool interaction bij debuggen
 	if(drawOptions.debug) {
 		makeGlobal();
+		// print(traffic.cars);
 	}
 }
 
@@ -50,10 +54,12 @@ function draw() {
 	background(69);
 	
 	car.update(road);
+	traffic.update();
 
 	push();
 		translate(0, -car.y + height * _69.CAR_BOTTOM_PLACEMENT);
 		road.draw();
+		traffic.draw(drawOptions)
 		car.draw(drawOptions);
 	pop();
 
@@ -88,6 +94,7 @@ window.keyPressed = keyPressed;
 function makeGlobal() {
 	window.road = road;
 	window.car = car;
+	window.traffic = traffic;
 	window.drawOptions = drawOptions;
 }
 
