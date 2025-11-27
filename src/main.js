@@ -9,7 +9,7 @@ import "../style.css";
 
 const p5canvas = document.querySelector("#p5canvas");
 let road;
-let car;
+let userCar;
 let traffic;
 let svgIcon;
 let height;
@@ -31,7 +31,7 @@ function setup() {
 
 	road = new Road(_69.CANVAS_WIDTH);
 	traffic = new Traffic(11, road, svgIcon)
-	car = new UserCar({
+	userCar = new UserCar({
 		x: road.getLaneCenter(2),
 		y: height * _69.CAR_BOTTOM_PLACEMENT,
 		width: _69.CAR_WIDTH,
@@ -41,7 +41,7 @@ function setup() {
 		autoIcon: svgIcon
 	});
 
-	// de classes ook voor devtool interaction bij debuggen
+	// de classes globaal beschikbaar voor devtool interaction bij debuggen
 	if(drawOptions.debug) {
 		makeGlobal();
 		// print(traffic.cars);
@@ -53,14 +53,14 @@ function draw() {
 	resizeCanvas(_69.CANVAS_WIDTH, height);
 	background(69);
 	
-	car.update(road);
+	userCar.update(road);
 	traffic.update();
 
 	push();
-		translate(0, -car.y + height * _69.CAR_BOTTOM_PLACEMENT);
+		translate(0, -userCar.y + height * _69.CAR_BOTTOM_PLACEMENT);
 		road.draw();
 		traffic.draw(drawOptions)
-		car.draw(drawOptions);
+		userCar.draw(drawOptions);
 	pop();
 
 	if(!looper) noLoop();
@@ -93,7 +93,7 @@ window.keyPressed = keyPressed;
 
 function makeGlobal() {
 	window.road = road;
-	window.car = car;
+	window.car = userCar;
 	window.traffic = traffic;
 	window.drawOptions = drawOptions;
 }

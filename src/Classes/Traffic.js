@@ -15,12 +15,12 @@ export default class Traffic {
     #generateCars(amount) {
 
         const trafficColors = [
-            { r: 222, g: 69, b: 69 },   // Red
-            { r: 69, g: 222, b: 69 },   // Green
-            { r: 69, g: 169, b: 222 },  // Blue
-            { r: 222, g: 169, b: 69 },  // Orange
-            { r: 169, g: 69, b: 169 },  // Purple
-            { r: 169, g: 169, b: 100 }  // Gray
+            { r: 222, g: 69, b: 69 },   // Red-ish
+            { r: 69, g: 222, b: 69 },   // Green-ish
+            { r: 69, g: 169, b: 222 },  // Blue-ish
+            { r: 222, g: 169, b: 69 },  // Orange-ish
+            { r: 169, g: 69, b: 169 },  // Purple-ish
+            { r: 169, g: 169, b: 100 }  // Gray-ish
         ];
 
         for (let i=0; i<amount; ++i) {
@@ -29,11 +29,11 @@ export default class Traffic {
             
             const car = new Car({
                 x: this.road.getLaneCenter(laneIndex),
-                y: round(random(-3690, 690)),
+                y: round(random(-1690, 690)),
                 width: CAR_WIDTH,
                 height: CAR_HEIGHT,
-                speed: random(4, 6.9),
-                acceleration: random(1, 6.9),
+                speed: random(5, 6.9),
+                acceleration: random(5, 6.9),
                 autoIcon: this.icon,
                 color: color
             });

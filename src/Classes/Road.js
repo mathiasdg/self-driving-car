@@ -12,9 +12,9 @@ export default class Road {
     constructor(width, lanes = 3) {
         this.lanes = lanes;
         this.width = width;
-        this.roadLength = 10000;
+        this.roadLength = 100000;
         this.roadPadding = 11;
-        this.bottom = this.roadLength/7;
+        this.bottom = this.roadLength/11;
         this.top = -this.roadLength;
         this.laneWidth = this.width / this.lanes;
         
