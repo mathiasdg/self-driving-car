@@ -14,6 +14,8 @@ let traffic;
 let svgIcon;
 let height;
 let looper = true;
+let frameCounter = 0;
+const updateInterval = 6
 const drawOptions = {
 	debug: true,
     sensorsOn: true,
@@ -60,8 +62,18 @@ function draw() {
 		translate(0, -userCar.y + height * _69.CAR_BOTTOM_PLACEMENT);
 		road.draw();
 		traffic.draw(drawOptions)
-		userCar.draw(drawOptions);
+		const carState = userCar.draw(drawOptions);
 	pop();
+
+	++frameCounter;
+	// console.log(carState.speed);
+	if (frameCounter >= updateInterval) {
+		document.querySelector('.display').textContent = round(carState.speed * 10);
+		document.querySelector('.needle').style.setProperty('--needle',`${carState.speed * 13.69}deg`);
+		// document.querySelector('.needle').style.transform = `scale(0.87) rotate(${carState.speed * 11.69}deg)`;
+		frameCounter = 0;
+	}
+	
 
 	if(!looper) noLoop();
 }
