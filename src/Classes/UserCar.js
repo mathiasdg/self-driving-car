@@ -44,6 +44,15 @@ export default class UserCar extends Car {
         if (options.debug) {
             this.#drawDebugInfo();
         }
+
+        return {
+            x: this.x,
+            y: this.y,
+            direction: this.direction,
+            speed: this.speed,
+            damaged: this.damaged,
+            collisions: this.collisions
+        }
     }
 
     #drawDebugInfo() {
