@@ -68,8 +68,9 @@ function draw() {
 	++frameCounter;
 	// console.log(carState.speed);
 	if (frameCounter >= updateInterval) {
-		document.querySelector('.display').textContent = round(carState.speed * 10);
-		document.querySelector('.needle').style.setProperty('--needle',`${carState.speed * 13.69}deg`);
+		const speed = Math.abs(carState.speed);
+		document.querySelector('.display').textContent = round(speed * 10);
+		document.querySelector('.needle').style.setProperty('--needle',`${speed * 13.69}deg`);
 		// document.querySelector('.needle').style.transform = `scale(0.87) rotate(${carState.speed * 11.69}deg)`;
 		frameCounter = 0;
 	}
