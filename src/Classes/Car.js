@@ -130,7 +130,7 @@ export default class Car {
     
 
 	move() {
-        // this.speed += this.acceleration;
+        if (Math.abs(this.speed) < this.acceleration/2) this.speed = 0;
         // Basic movement - can be overridden
         this.x -= this.speed * Math.sin(-this.direction);
         this.y -= this.speed * Math.cos(-this.direction);
@@ -140,6 +140,5 @@ export default class Car {
         // Boundary wrapping
         if (this.x < 0) this.x = _69.CANVAS_WIDTH;
         if (this.x > _69.CANVAS_WIDTH) this.x = 0;
-        if (Math.abs(this.speed) < 0.1) this.speed = 0;
     }
 }
