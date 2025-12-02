@@ -93,8 +93,8 @@ canvas {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* border: 1px solid rgba(107, 107, 107, 0.308); */
 	box-shadow: inset 5px 5px 6px 3px rgba(49, 49, 49, 0.69);
+	margin: 2rem 0;
 }
 #instruments::before {
 	content: "";
@@ -102,12 +102,19 @@ canvas {
 	inset: 3rem;
 	border-radius: 50%;
 	transform: rotate(90deg);
-	background: conic-gradient(hsl(0, 0%, 19%) 50%, hsl(90, 100%, 50%), hsl(60, 100%, 50%), hsl(30, 100%, 50%), hsl(0, 100%, 50%), hsl(0, 0%, 19%));
+	background: conic-gradient(
+		hsl(0, 0%, 19%) 50%, 
+		hsl(90, 100%, 50%), 
+		hsl(60, 100%, 50%), 
+		hsl(30, 100%, 50%), 
+		hsl(0, 100%, 50%), 
+		hsl(0, 0%, 19%)
+	);
 }
 #instruments::after {
 	content: "";
 	position: absolute;
-	inset: 4rem;
+	inset: 3rem;
 	filter: blur(6.9px);
 	border-radius: 50%;
 	background: hsl(0, 0%, 19%);
@@ -117,7 +124,7 @@ canvas {
 	z-index: 3;
 	background: rgb(54, 53, 53);
 	border-radius: 50%;
-	box-shadow: 0 0 0.69rem 0.11rem rgba(30, 173, 173, 0.308);
+	box-shadow: 0 0 0.69rem 0.11rem rgba(123, 255, 255, 0.308);
 	/* padding: 3rem; */
 	width: 11rem;
 	aspect-ratio: 1 / 1;
@@ -131,7 +138,7 @@ canvas {
 	position: absolute;
 	top: 50%;
 	left: 0;
-	background: rgba(245, 245, 245, 0.96);
+	background: rgb(245, 245, 245);
 	z-index: 2;
 	width: 50%;
 	height: 1rem;
@@ -141,9 +148,9 @@ canvas {
 }
 
 #menu {
-	/* background-color: sienna;
+	background-color: rgba(160, 81, 45, 0.315);
 	width: 100%;
-	flex: 1; */
+	flex: 1;
 }
 
 .dashboard {
