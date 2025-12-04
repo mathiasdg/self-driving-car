@@ -15,21 +15,23 @@ export default class UserCar extends Car {
     constructor(options) {
         super(options);
 
+        this.collisions = []
+
         this.controls = new Controls();
         this.sensor = new Sensor(this, _69.RAY_COUNT, _69.RAY_SPREAD);
         this.windscreen = new Windscreen(this);
     }
 
-    update(road) {
+    update(road, traffic) {
         super.update(road);
 
         // wrijven maar
         this.speed *= _69.FRICTION;
 
-        this.sensor.update(road.borders)
-        this.windscreen.update(road);
+        this.sensor.update(road.borders, traffic)
+        this.windscreen.update(road, traffic);
 
-        const result = this.#assessDamage(road.borders);
+        const result = this.#assessDamage(road.borders, traffic);
         this.damaged = result.damaged;
         this.collisions = result.intersections;
 
@@ -87,7 +89,7 @@ export default class UserCar extends Car {
         protected methods
     */
 
-    #assessDamage(borders) {
+    #assessDamage(borders, traffic) {
         const theta = this.direction;
         const worldPolygon = this.polygon.map(pt => {
             const rotatedX = pt.x * Math.cos(theta) - pt.y * Math.sin(theta);
@@ -100,6 +102,26 @@ export default class UserCar extends Car {
 
         for (const border of borders) {
             const intersections = polysIntersect(worldPolygon, border);
+            allIntersections.push(...intersections);
+            if (intersections.length > 0) {
+                isDamaged = true;
+            }
+        }
+
+        for (const car of traffic) {
+            // print(car)
+            const theta = car.direction;
+            // const worldTrafficCarPolygons = car.polygon.map(pt => {
+            //     const rotatedX = pt.x * Math.cos(theta) - pt.y * Math.sin(theta);
+            //     const rotatedY = pt.x * Math.sin(theta) + pt.y * Math.cos(theta);
+            //     return createVector(rotatedX + this.x, rotatedY + this.y);
+            // });
+    
+            // print(worldTrafficCarPolygons)
+            // print(worldPolygon)
+            // print(car.polygon)
+
+            const intersections = polysIntersect(worldPolygon, car.polygon);
             allIntersections.push(...intersections);
             if (intersections.length > 0) {
                 isDamaged = true;

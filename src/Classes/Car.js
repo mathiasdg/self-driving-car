@@ -29,14 +29,9 @@ export default class Car {
         this.acceleration = acceleration;
         this.damaged = false;
         this.color = color;
-		// this.tint = {
-        //     r: round( random(222) ), 
-        //     g: round( random(169) ), 
-        //     b: round( random(222) )
-        // };
 
 		this.polygon = [];
-        this.collisions = [];
+        // this.collisions = [];
     }
 
     update(road) {
@@ -76,12 +71,19 @@ export default class Car {
     }
 
     createPolygon() {
+        // print(this.x, this.y)
         const points = [
-            createVector( -this.width / 2 + _69.CAR_IMAGE_OFFSET_X, -this.height / 2 + _69.CAR_IMAGE_OFFSET_Y),
-            createVector( this.width / 2 - _69.CAR_IMAGE_OFFSET_X, -this.height / 2 + _69.CAR_IMAGE_OFFSET_Y),
-            createVector( this.width / 2 - _69.CAR_IMAGE_OFFSET_X, this.height / 2 - _69.CAR_IMAGE_OFFSET_Y),
-            createVector( -this.width / 2 + _69.CAR_IMAGE_OFFSET_X, this.height / 2 - _69.CAR_IMAGE_OFFSET_Y),
+            { x: this.x - _69.CAR_IMAGE_OFFSET_X, y: this.y - _69.CAR_IMAGE_OFFSET_Y},
+            { x: this.x + _69.CAR_IMAGE_OFFSET_X, y: this.y - _69.CAR_IMAGE_OFFSET_Y},
+            { x: this.x + _69.CAR_IMAGE_OFFSET_X, y: this.y + _69.CAR_IMAGE_OFFSET_Y},
+            { x: this.x - _69.CAR_IMAGE_OFFSET_X, y: this.y + _69.CAR_IMAGE_OFFSET_Y}
+            // createVector( -this.width / 2 + _69.CAR_IMAGE_OFFSET_X, -this.height / 2 + _69.CAR_IMAGE_OFFSET_Y),
+            // createVector( this.width / 2 - _69.CAR_IMAGE_OFFSET_X, -this.height / 2 + _69.CAR_IMAGE_OFFSET_Y),
+            // createVector( this.width / 2 - _69.CAR_IMAGE_OFFSET_X, this.height / 2 - _69.CAR_IMAGE_OFFSET_Y),
+            // createVector( -this.width / 2 + _69.CAR_IMAGE_OFFSET_X, this.height / 2 - _69.CAR_IMAGE_OFFSET_Y),
         ];
+        // print(points)
+
 
         return points;
     }
@@ -108,6 +110,8 @@ export default class Car {
         image(this.icon, - this.width / 2, -this.height / 2, this.width, this.height);
 
         pop();
+
+        this.drawCarBorder(this.polygon)
     }
 
     drawCarBorder(points) {
@@ -125,9 +129,7 @@ export default class Car {
         }
         endShape(CLOSE)
         pop()
-    }
-
-    
+    }    
 
 	move() {
         if (Math.abs(this.speed) < this.acceleration/2) this.speed = 0;

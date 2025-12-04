@@ -27,16 +27,18 @@ export default class Traffic {
             const laneIndex = floor( random(1, this.road.lanes+1) );
             const color = random(trafficColors);
             
-            const car = new Car({
-                x: this.road.getLaneCenter(laneIndex),
-                y: round(random(-1690, 690)),
-                width: CAR_WIDTH,
-                height: CAR_HEIGHT,
-                speed: random(5, 6.9),
-                acceleration: random(5, 6.9),
-                autoIcon: this.icon,
-                color: color
-            });
+            const car = new Car(
+                {
+                    x: this.road.getLaneCenter(laneIndex),
+                    y: round(random(169, 690)),
+                    width: CAR_WIDTH,
+                    height: CAR_HEIGHT,
+                    // speed: random(1, 2),
+                    acceleration: random(0.1, 0.2),
+                    autoIcon: this.icon,
+                    color: color
+                }
+            );
 
             this.cars.push(car);
         }
@@ -44,7 +46,7 @@ export default class Traffic {
 
     update() {
         for(const car of this.cars) {
-            car.update(this.road);
+            car.update(this.road, []);
         }
     }
 
@@ -70,8 +72,8 @@ export default class Traffic {
             width: CAR_WIDTH,
             height: CAR_HEIGHT,
             direction: 0,
-            speed: random(1, 3),
-            acceleration: random(0.3, 0.4),
+            speed: random(0.1, 0.2),
+            acceleration: random(0.01, 0.02),
             autoIcon: this.icon,
             color: {
                 r: round(random(122, 220)), 

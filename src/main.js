@@ -32,7 +32,7 @@ function setup() {
 	createCanvas(_69.CANVAS_WIDTH, height, p5canvas);
 
 	road = new Road(_69.CANVAS_WIDTH);
-	traffic = new Traffic(11, road, svgIcon)
+	traffic = new Traffic(1, road, svgIcon)
 	userCar = new UserCar({
 		x: road.getLaneCenter(2),
 		y: height * _69.CAR_BOTTOM_PLACEMENT,
@@ -55,8 +55,8 @@ function draw() {
 	resizeCanvas(_69.CANVAS_WIDTH, height);
 	background(69);
 	
-	userCar.update(road);
 	traffic.update();
+	userCar.update(road, traffic.cars);
 
 	push();
 		translate(0, -userCar.y + height * _69.CAR_BOTTOM_PLACEMENT);

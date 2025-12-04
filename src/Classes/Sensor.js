@@ -12,7 +12,10 @@ export default class Sensor {
         this.readings = [];
     }
 
-    update(roadBorders) {
+    update(roadBorders, traffic) {
+
+        // print(traffic.cars)
+
         this.x = this.car.x;
         this.y = this.car.y;
 
@@ -22,6 +25,7 @@ export default class Sensor {
         for (const ray of this.rays) {
             this.readings.push(
                 this.#getReading(ray, roadBorders)
+                // this.#getReading(ray, traffic.cars)
             )
         }
     }
